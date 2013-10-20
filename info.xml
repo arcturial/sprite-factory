@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<c2addon>
+	<type>plugin</type>
+	<name>Factory</name>
+	<version>1.0</version>
+	<author>Chris Brand</author>
+	<website>http://www.cainsvault.com</website>
+	<documentation>http://www.cainsvault.com/blog/construct-2-sprite-factory</documentation>
+	<description>The factory plugin acts as a data store for other objects and can be used as a spawning factory.</description>
+</c2addon>
