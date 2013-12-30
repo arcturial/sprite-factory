@@ -54,6 +54,23 @@ cr.plugins_.SpriteFactory = function(runtime)
     // Conditions
     function Cnds() {};
 
+    Cnds.prototype.IsParent = function (obj)
+    {
+        var sol = obj.getCurrentSol();
+
+        for (var key in sol.instances) {
+
+            var instance = sol.instances[key];
+
+            if (typeof instance.from_factory !== 'undefined' && instance.from_factory == this) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     pluginProto.cnds = new Cnds();
 
     //////////////////////////////////////
@@ -106,6 +123,22 @@ cr.plugins_.SpriteFactory = function(runtime)
 
                 if (obj) {
                     spawn.push(obj);
+
+                    // Change obj proto for OnCreate to include a call to OnSpawn, then reset
+                    // the proto.
+                    var originalOnCreate = obj.plugin.Instance.prototype.onCreate;
+
+                    obj.plugin.Instance.prototype.onCreate = function()
+                    {
+                        // Reset the onCreate
+                        obj.plugin.Instance.prototype.onCreate = originalOnCreate;
+
+                        // Mark the object as spawned from this factory.
+                        this.from_factory = instance;
+
+                        // Call on create
+                        originalOnCreate.apply(this);
+                    }
                 }
             }
 

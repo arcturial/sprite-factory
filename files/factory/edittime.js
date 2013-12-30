@@ -21,9 +21,15 @@ function GetPluginSettings()
 };
 
 ////////////////////////////////////////
+// Conditions
+AddObjectParam("Object", "Check if this object was spawned by the factory.");
+AddCondition(0, 0, "Did factory spawn?", "General", "Spawned {0}", "Tests if the specified object was spawned by this factory.", "IsParent");
+
+////////////////////////////////////////
 // Actions
 AddObjectParam("Object", "The object to store in the factory");
 AddAction(0, 0, "Set factory object", "General", "Object {0} set on the factory", "Set the object of the factory.", "Set");
+
 
 ACESDone();
 
